@@ -9,6 +9,10 @@ android {
         version = release(36)
     }
 
+    buildFeatures{
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.mobile_smart_pantry_project_iv"
         minSdk = 29
