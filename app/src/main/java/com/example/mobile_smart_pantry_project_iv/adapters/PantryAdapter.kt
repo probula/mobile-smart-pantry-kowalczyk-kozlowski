@@ -44,6 +44,24 @@ class PantryAdapter(private var products: List<Product>) :
             } else {
                 layoutContainer.setBackgroundColor(Color.WHITE)
             }
+
+            if (product.quantity < 3) {
+                tvProductQuantity.setTextColor(Color.RED)
+            } else {
+                tvProductQuantity.setTextColor(Color.BLACK)
+            }
+
+            btnAdd.setOnClickListener {
+                product.quantity++
+                notifyItemChanged(holder.adapterPosition)
+            }
+
+            btnConsume.setOnClickListener {
+                if (product.quantity > 0) {
+                    product.quantity--
+                    notifyItemChanged(holder.adapterPosition)
+                }
+            }
         }
     }
 
