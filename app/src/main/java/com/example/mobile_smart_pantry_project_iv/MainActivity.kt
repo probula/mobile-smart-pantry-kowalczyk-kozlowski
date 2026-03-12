@@ -8,12 +8,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_smart_pantry_project_iv.adapters.PantryAdapter
 import com.example.mobile_smart_pantry_project_iv.databinding.ActivityMainBinding
+import com.example.mobile_smart_pantry_project_iv.models.Product
 import com.example.mobile_smart_pantry_project_iv.utils.JsonParser
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: PantryAdapter
+    private var allProducts: List<Product> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         loadInventory()
+        setupControls()
     }
 
     private fun setupRecyclerView() {
@@ -40,7 +43,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadInventory() {
-        val products = JsonParser.loadProductsFromRaw(this, R.raw.inventory)
-        adapter.updateData(products)
+        allProducts = JsonParser.loadProductsFromRaw(this, R.raw.inventory)
+        adapter.updateData(allProducts)
+    }
+    private fun setupControls() {
+        binding.btnSearch.setOnClickListener {
+            val query = binding.etSearch.text.toString()
+            val filtered = allProducts.filter { it.name.contains(query, ignoreCase = true) }
+            adapter.updateData(filtered)
+        }
+
+        binding.btnFood.setOnClickListener {
+            val filtered = allProducts.filter { it.category.contains("Food", ignoreCase = true) }
+            adapter.updateData(filtered)
+        }
+
+        binding.btnAll.setOnClickListener {
+            adapter.updateData(allProducts)
+        }
     }
 }
