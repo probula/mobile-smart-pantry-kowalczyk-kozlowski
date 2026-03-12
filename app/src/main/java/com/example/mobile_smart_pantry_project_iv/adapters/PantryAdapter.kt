@@ -44,6 +44,11 @@ class PantryAdapter(private var products: List<Product>) :
             } else {
                 layoutContainer.setBackgroundColor(Color.WHITE)
             }
+
+            btnAdd.setOnClickListener {
+                product.quantity++
+                notifyItemChanged(holder.adapterPosition)
+            }
         }
     }
 
