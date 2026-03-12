@@ -45,6 +45,12 @@ class PantryAdapter(private var products: List<Product>) :
                 layoutContainer.setBackgroundColor(Color.WHITE)
             }
 
+            if (product.quantity < 3) {
+                tvProductQuantity.setTextColor(Color.RED)
+            } else {
+                tvProductQuantity.setTextColor(Color.BLACK)
+            }
+
             btnAdd.setOnClickListener {
                 product.quantity++
                 notifyItemChanged(holder.adapterPosition)
