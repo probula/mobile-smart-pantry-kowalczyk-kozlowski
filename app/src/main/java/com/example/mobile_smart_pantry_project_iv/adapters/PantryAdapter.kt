@@ -49,6 +49,13 @@ class PantryAdapter(private var products: List<Product>) :
                 product.quantity++
                 notifyItemChanged(holder.adapterPosition)
             }
+
+            btnConsume.setOnClickListener {
+                if (product.quantity > 0) {
+                    product.quantity--
+                    notifyItemChanged(holder.adapterPosition)
+                }
+            }
         }
     }
 
